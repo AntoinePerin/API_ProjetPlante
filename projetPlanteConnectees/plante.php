@@ -37,8 +37,10 @@
 		$libelle = $_POST["Libelle_plante"];
 		$datePlantation = $_POST["Date_plantation_plante"];
 		$description = $_POST["Description_plante"];
+		$niveauIrrigation = $_POST["Niveau_irrigation_plante"];
+		$seuilHumidite = $_POST["Seuil_humidite_plante"];
 		//$created = date('Y-m-d H:i:s');
-		echo $query="INSERT INTO plante(Adresse_Mac_plante, Libelle_plante, Date_plantation_plante, Description_plante) VALUES('".$adresseMac."', '".$libelle."', '".$datePlantation."', '".$description."')";
+		echo $query="INSERT INTO plante(Adresse_Mac_plante, Libelle_plante, Date_plantation_plante, Description_plante,Niveau_irrigation_plante,Seuil_humidite_plante) VALUES('".$adresseMac."', '".$libelle."', '".$datePlantation."', '".$description."', '".$niveauIrrigation."', '".$seuilHumidite."')";
 		if(mysqli_query($conn, $query))
 		{
 			$response=array(

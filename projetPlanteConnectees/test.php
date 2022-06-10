@@ -1,43 +1,17 @@
 <?php
-	class MyClass {
-	}
+	$url = 'http://127.0.0.1/API_ProjetPlante/projetPlanteConnectees/plante.php';
+	$data = array('Adresse_Mac_plante' => 'test569', 'Libelle_plante' => 'JPP', 'Date_plantation_plante' => '2022-06-10', 'Description_plante' => 'TEST AJOUT REQUETE POST', 'Niveau_irrigation_plante' => '3', 'Seuil_humidite_plante' => '55');
 
-	class Data {
-	}
-	
-	// Connect to database
-	include("db_connect.php");
-	$request_method = $_SERVER["REQUEST_METHOD"];
+	$options = array(
+		'http' => array(
+			'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+			'method'  => 'POST',
+			'content' => http_build_query($data)
+		)
+	);
+	$context  = stream_context_create($options);
+	$result = file_get_contents($url, false, $context);
+	if ($result === FALSE) { /* Handle error */ }
 
-	function getAllPlante()
-	{
-		global $conn;
-		$query = "SELECT * FROM plante";
-		$plantes = array();
-		$result = mysqli_query($conn, $query);
-		while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
-		{
-			$plantes[] = $row;
-		}
-
-		$data = new Data();
-		$data->plantes = $plantes;
-
-		$myClass = new MyClass();
-		$myClass -> data=$data;
-
-		header('Content-Type: application/json');
-		echo json_encode($myClass, JSON_PRETTY_PRINT);
-	}
-	
-	switch($request_method)
-	{
-		case 'GET':		
-			getAllPlante();
-			break;
-		default:
-			// Invalid Request Method
-			header("HTTP/1.0 405 Method Not Allowed");
-			break;
-	}
+	var_dump($result);
 ?>
