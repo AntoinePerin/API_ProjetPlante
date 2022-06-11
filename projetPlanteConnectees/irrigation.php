@@ -9,19 +9,19 @@
 	include("db_connect.php");
 	$request_method = $_SERVER["REQUEST_METHOD"];
 
-	function getAllMesures()
+	function getAllIrrigations()
 	{
 		global $conn;
-		$query = "SELECT * FROM mesures";
+		$query = "SELECT * FROM irrigation";
 		$mesures = array();
 		$result = mysqli_query($conn, $query);
 		while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 		{
-			$mesures[] = $row;
+			$irrigations[] = $row;
 		}
 
 		$data = new Data();
-		$data->mesures = $mesures;
+		$data->irrigations = $irrigations;
 
 		$myClass = new MyClass();
 		$myClass -> data=$data;
@@ -30,19 +30,19 @@
 		echo json_encode($myClass, JSON_PRETTY_PRINT);
 	}
 	
-	function getMesuresPlante($id)
+	function getIrrigationsPlante($id)
 	{
 		global $conn;
-		$query = "SELECT * FROM mesures WHERE Adresse_Mac_Plante= '".$id."' ORDER BY Date_mesure ASC";
+		$query = "SELECT * FROM irrigation WHERE Adresse_Mac_Plante= '".$id."' ORDER BY Date_irrigation ASC";
 		$mesures = array();
 		$result = mysqli_query($conn, $query);
 		while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 		{
-			$mesures[] = $row;
+			$irrigations[] = $row;
 		}
 
 		$data = new Data();
-		$data->mesures = $mesures;
+		$data->irrigations = $irrigations;
 
 		$myClass = new MyClass();
 		$myClass -> data=$data;
@@ -51,18 +51,18 @@
 		echo json_encode($myClass, JSON_PRETTY_PRINT);
 	}
 	
-	function getLastMesurePlante($id)
+	function getLastIrrigationPlante($id)
 	{
 		global $conn;
-		$query = "SELECT * FROM mesures WHERE Adresse_Mac_Plante= '".$id."' ORDER BY Date_mesure DESC LIMIT 1";
+		$query = "SELECT * FROM irrigation WHERE Adresse_Mac_Plante= '".$id."' ORDER BY Date_irrigation DESC LIMIT 1";
 		$mesures = array();
 		$result = mysqli_query($conn, $query);
 		while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 		{
-			$mesures[] = $row;
+			$irrigations[] = $row;
 		}
 		$data = new Data();
-		$data->mesures = $mesures;
+		$data->irrigations = $irrigations;
 
 		$myClass = new MyClass();
 		$myClass -> data=$data;
@@ -77,15 +77,15 @@
 			if(!empty($_GET["id"])&& !isset($_GET["last"]))
 			{
 				$id=strval($_GET["id"]);
-				getMesuresPlante($id);
+				getIrrigationsPlante($id);
 			}
 			elseif(!empty($_GET["id"])&& isset($_GET["last"])){
 				$id=strval($_GET["id"]);
-				getLastMesurePlante($id);
+				getLastIrrigationPlante($id);
 			}
 			else
 			{
-				getAllMesures();
+				getAllIrrigations();
 			}
 			break;
 		default:

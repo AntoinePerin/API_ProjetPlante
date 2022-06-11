@@ -1,6 +1,6 @@
 <?php
-	$url = 'http://127.0.0.1/API_ProjetPlante/projetPlanteConnectees/plante.php';
-	$data = array('Adresse_Mac_plante' => 'test569', 'Libelle_plante' => 'JPP', 'Date_plantation_plante' => '2022-06-10', 'Description_plante' => 'TEST AJOUT REQUETE POST', 'Niveau_irrigation_plante' => '3', 'Seuil_humidite_plante' => '55');
+	$url = 'http://azammouri.com/pc/uploads/plante.php';
+	$data = array('Adresse_Mac_plante' => 'test777', 'Libelle_plante' => 'JPP2', 'Date_plantation_plante' => '2022-06-11', 'Description_plante' => 'TEST AJOUT REQUETE POST 2', 'Niveau_irrigation_plante' => '3', 'Seuil_humidite_plante' => '55');
 
 	$options = array(
 		'http' => array(
