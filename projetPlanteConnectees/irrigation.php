@@ -71,10 +71,30 @@
 		echo json_encode($myClass, JSON_PRETTY_PRINT);
 	}
 
+	function getNLastIrrigationPlante($id,$nbrMesure)
+	{
+		global $conn;
+		$query = "SELECT * FROM irrigation WHERE Adresse_Mac_Plante= '".$id."' ORDER BY Date_irrigation DESC LIMIT ".$nbrMesure;
+		$mesures = array();
+		$result = mysqli_query($conn, $query);
+		while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
+		{
+			$mesures[] = $row;
+		}
+		$data = new Data();
+		$data->mesures = $mesures;
+
+		$myClass = new MyClass();
+		$myClass -> data=$data;
+
+		header('Content-Type: application/json');
+		echo json_encode($myClass, JSON_PRETTY_PRINT);
+	}
+
 	switch($request_method)
 	{
 		case 'GET':
-			if(!empty($_GET["id"])&& !isset($_GET["last"]))
+			if(!empty($_GET["id"])&& !isset($_GET["last"])&& !isset($_GET["nbrMesure"]))
 			{
 				$id=strval($_GET["id"]);
 				getIrrigationsPlante($id);
@@ -82,6 +102,11 @@
 			elseif(!empty($_GET["id"])&& isset($_GET["last"])){
 				$id=strval($_GET["id"]);
 				getLastIrrigationPlante($id);
+			}
+			elseif(isset($_GET["id"])&& isset($_GET["nbrMesure"])){
+				$id=strval($_GET["id"]);
+				$nbrMesure=intval($_GET["nbrMesure"]);
+				getNLastIrrigationPlante($id,$nbrMesure);
 			}
 			else
 			{

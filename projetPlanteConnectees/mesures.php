@@ -91,6 +91,26 @@
 		echo json_encode($myClass, JSON_PRETTY_PRINT);
 	}
 
+	/*function getNAllMesurePlante($nbrMesure)
+	{
+		global $conn;
+		$query = "SELECT * FROM mesures WHERE Adresse_Mac_Plante= '".$id."' ORDER BY Date_mesure DESC LIMIT ".$nbrMesure;
+		$mesures = array();
+		$result = mysqli_query($conn, $query);
+		while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
+		{
+			$mesures[] = $row;
+		}
+		$data = new Data();
+		$data->mesures = $mesures;
+
+		$myClass = new MyClass();
+		$myClass -> data=$data;
+
+		header('Content-Type: application/json');
+		echo json_encode($myClass, JSON_PRETTY_PRINT);
+	}*/
+
 	switch($request_method)
 	{
 		case 'GET':
@@ -103,7 +123,11 @@
 				$id=strval($_GET["id"]);
 				getLastMesurePlante($id);
 			}
-			elseif(!empty($_GET["id"])&& isset($_GET["nbrMesure"])){
+			/*elseif(!empty($_GET["id"])&& isset($_GET["nbrMesure"])){
+				$nbrMesure=intval($_GET["nbrMesure"]);
+				getNAllMesurePlante($nbrMesure);
+			}*/
+			elseif(isset($_GET["id"])&& isset($_GET["nbrMesure"])){
 				$id=strval($_GET["id"]);
 				$nbrMesure=intval($_GET["nbrMesure"]);
 				getNLastMesurePlante($id,$nbrMesure);
